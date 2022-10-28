@@ -1,0 +1,6 @@
+WORDLER PLAN:
+
+1. Implement a solution only using entropy as criteria for choosing words
+2. Run simulations to calculate average guesses to go depending on remaining words -> critera for guess word in or out of wordlist
+    -> think if it's necessary: entropy already considers choosing the correct word
+3. Implement GUI using pygame
