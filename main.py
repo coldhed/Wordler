@@ -1,4 +1,5 @@
 from Wordler import Wordler
+from Evaluator import Evaluator
 
 wordler = Wordler("wordle")
 
@@ -20,13 +21,16 @@ wordler = Wordler("wordle")
 #     else:
 #         print("Try again! The guess result was: " + answer)
 
-wordler.initSolving()
-answer = ""
+# wordler.initSolving()
+# answer = ""
 
-while answer != "ggggg":
-    print(wordler.bestGuess())
+# while answer != "ggggg":
+#     print(wordler.bestGuess(3))
     
-    guess = input("What word did you guess? ")
-    answer = input("What was your answer? ")
+#     guess = input("What word did you guess? ")
+#     answer = input("What was your answer? ")
     
-    wordler.solvingGuess(guess, answer)
+#     wordler.solvingGuess(guess, answer)
+
+evaluator = Evaluator("wordle")
+evaluator.evaluate()
