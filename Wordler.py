@@ -48,7 +48,7 @@ class Wordler(Wordle):
         # we cant do the same process due to information theory's definition of information
         # if we have only one option there is no information to be gained -> we know all
         if len(self.answerListCopy) == 1:
-            return (self.answerListCopy[0], 'Answer Found')
+            return [(self.answerListCopy[0], 'Answer Found')]
         
         if self.playing:
             al = self.answerListCopy[:]
@@ -59,8 +59,8 @@ class Wordler(Wordle):
         guessValue = list()
         
         # if the initial list already exist we avoid costly computation
-        if len(self.answerList) == len(al) and os.path.exists("wordLists\\" + self.ds + "\\initialEntropy.csv"):
-            with open("wordLists\\" + self.ds + "\\initialEntropy.csv") as csvfile:
+        if len(self.answerList) == len(al) and os.path.exists("wordLists/" + self.ds + "/initialEntropy.csv"):
+            with open("wordLists/" + self.ds + "/initialEntropy.csv") as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
                     guessValue.append((row['word'], row['entropy']))
@@ -73,22 +73,22 @@ class Wordler(Wordle):
         
         guessValue.sort(key=lambda tup: tup[1], reverse=True)
         
-        return [(self.guessList[ind], entropy) for (ind, entropy) in guessValue[:3]]
+        return list([(self.guessList[ind], entropy) for (ind, entropy) in guessValue[:3]])
 
 
     
     # used to record the output in a file for future use
-    def bestGuessFileOutput(self):
+    def bestGuessFileOutput(self, al):
         # store the index and expected value (Entropy in bits) for each word in a tuple
         guessValue = list()
         
         for i in range(len(self.guessList)):
-            guessValue.append((i, self.entropy(i)))
+            guessValue.append((i, self.entropy(i, al)))
             
         guessValue.sort(key=lambda tup: tup[1], reverse=True)
         guessValue = [str(self.guessList[ind]) + "," + str(entropy) for (ind, entropy) in guessValue]
         
-        with open("wordLists\\" + self.ds + "\\initialEntropy.csv", 'w') as f:
+        with open("wordLists/" + self.ds + "/initialEntropy.csv", 'w') as f:
             f.write("word,entropy\n")
             for word in guessValue:
                 f.write("%s\n" % word)

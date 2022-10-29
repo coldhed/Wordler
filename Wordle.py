@@ -2,8 +2,8 @@ import random
 
 class Wordle:
     def __init__(self, dataSet):
-        self.guessList = list(line.strip().lower() for line in open("wordLists\\" + dataSet + "\\guessList.txt"))
-        self.answerList = list(line.strip().lower() for line in open("wordLists\\" + dataSet + "\\answerList.txt"))
+        self.guessList = list(line.strip().lower() for line in open("wordLists/" + dataSet + "/guessList.txt"))
+        self.answerList = list(line.strip().lower() for line in open("wordLists/" + dataSet + "/answerList.txt"))
         
         # random.seed()
         random.seed()
@@ -12,6 +12,12 @@ class Wordle:
         
     def initGame(self):
         self.word = random.choice(self.answerList)
+        self.nGuesses = 0
+        
+        self.playing = True
+        
+    def initSetWord(self, word_):
+        self.word = word_
         self.nGuesses = 0
         
         self.playing = True
